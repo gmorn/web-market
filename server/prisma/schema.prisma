@@ -1,0 +1,185 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String   @unique
+  rating      Float    @default(0)
+  reviewCount Int      @default(0)
+  image       String   @default("")
+  createDate  DateTime
+  status      Boolean  @default(true)
+
+  phone             Phones[]
+  address           Addresses[]
+  announcements     Announcements[]
+  message           Messages[]
+  user              Reviews[]       @relation(name: "UserReviews")
+  reviewer          Reviews[]       @relation(name: "ReviewerReviews")
+  firstUser         Chats[]         @relation(name: "firstUser")
+  secindUser        Chats[]         @relation(name: "secondUser")
+  notifications     Notification[]  @relation(name: "user")
+  sentNotifications Notification[]  @relation(name: "send")
+  favorite          Favorite[]
+}
+
+model Phones {
+  id     Int    @id @default(autoincrement())
+  userId Int
+  number String
+
+  user          Users           @relation(fields: [userId], references: [id])
+  announcements Announcements[]
+}
+
+model Announcements {
+  id            Int     @id @default(autoincrement())
+  userId        Int
+  chapterId     Int
+  caregoryId    Int
+  subcategoryId Int
+  name          String
+  price         Int
+  state         Boolean
+  type          Boolean
+  description   String
+  gallery       String
+  addressId     Int
+  connectMethod Int
+  phoneId       Int
+
+  phone           Phones            @relation(fields: [phoneId], references: [id])
+  user            Users             @relation(fields: [userId], references: [id])
+  chapter         Chapter           @relation(fields: [chapterId], references: [id])
+  category        Categories        @relation(fields: [caregoryId], references: [id])
+  subcategory     Subcategories     @relation(fields: [subcategoryId], references: [id])
+  address         Addresses         @relation(fields: [addressId], references: [id])
+  characteristics Characteristics[]
+  chat            Chats[]
+  review          Reviews[]
+  favorite        Favorite[]
+}
+
+model Characteristics {
+  id             Int    @id @default(autoincrement())
+  announcementId Int
+  name           String
+  param          String
+
+  announcement Announcements @relation(fields: [announcementId], references: [id])
+}
+
+model Reviews {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  reviewerId      Int
+  rating          Int
+  status          Boolean
+  announcementsId Int
+  content         String
+  images          String   @default("")
+  createDate      DateTime
+
+  user          Users         @relation(name: "UserReviews", fields: [userId], references: [id])
+  reviewer      Users         @relation(name: "ReviewerReviews", fields: [reviewerId], references: [id])
+  announcements Announcements @relation(fields: [announcementsId], references: [id])
+}
+
+model Chats {
+  id             Int      @id @default(autoincrement())
+  firstUserId    Int
+  secondtUserId  Int
+  announcementId Int
+  createDate     DateTime
+  status         Boolean  @default(true)
+
+  message      Messages[]
+  firstUser    Users         @relation(name: "firstUser", fields: [firstUserId], references: [id])
+  secondtUser  Users         @relation(name: "secondUser", fields: [secondtUserId], references: [id])
+  announcement Announcements @relation(fields: [announcementId], references: [id])
+}
+
+model Messages {
+  id         Int      @id @default(autoincrement())
+  chatId     Int
+  userId     Int
+  content    String
+  images     String   @default("")
+  createDate DateTime
+  readStatus Boolean  @default(false)
+  sendStatus Boolean  @default(false)
+
+  chat Chats @relation(fields: [chatId], references: [id])
+  user Users @relation(fields: [userId], references: [id])
+}
+
+model Chapter {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  announcements Announcements[]
+  categiry      Categories[]
+}
+
+model Categories {
+  id        Int    @id @default(autoincrement())
+  name      String
+  chapterId Int
+
+  chapter       Chapter         @relation(fields: [chapterId], references: [id])
+  announcements Announcements[]
+  subcategiry   Subcategories[]
+}
+
+model Subcategories {
+  id         Int    @id @default(autoincrement())
+  name       String
+  categiryId Int
+
+  categiry     Categories      @relation(fields: [categiryId], references: [id])
+  announcement Announcements[]
+}
+
+model Favorite {
+  id             Int @id @default(autoincrement())
+  userId         Int
+  announcementId Int
+
+  user         Users         @relation(fields: [userId], references: [id])
+  announcement Announcements @relation(fields: [announcementId], references: [id])
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  sendUserId  Int
+  title       String
+  content     String
+  createDate  DateTime
+  checkStatus Boolean
+
+  user     Users @relation(name: "user", fields: [userId], references: [id])
+  sendUser Users @relation(name: "send", fields: [sendUserId], references: [id])
+}
+
+model Addresses {
+  id     Int    @id @default(autoincrement())
+  userId Int
+  name   String
+
+  user          Users           @relation(fields: [userId], references: [id])
+  announcements Announcements[]
+}
