@@ -1,6 +1,6 @@
 import TestImageOne from '@/assets/images/for-test/test-image-1.jpg'
-import StarFalse from '@/assets/images/universal/star-false.svg'
-import StarTrue from '@/assets/images/universal/star-true.svg'
+import StarFalse from '@/assets/images/review/star-false.svg'
+import StarTrue from '@/assets/images/review/star-true.svg'
 import FormTextarea from '@/components/UI/input/FormTextarea'
 import Image from 'next/image'
 import { UserDataContainer } from './styles'

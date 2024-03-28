@@ -21,6 +21,10 @@ export const GlobalStyles = createGlobalStyle`
     flex-direction: column;
   }
 
+	a { 
+		text-decoration: none;
+	}
+
 	h1 {
 		${(props) => props.theme.typography.h1}
 	}

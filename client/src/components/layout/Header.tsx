@@ -5,6 +5,8 @@ import Chat from '@/assets/images/header/chat.svg'
 import Favorite from '@/assets/images/header/favorite.svg'
 import Pin from '@/assets/images/header/pin.svg'
 import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import styled from 'styled-components'
 
 const HeaderContent = styled.div`
@@ -37,7 +39,6 @@ const HeaderContent = styled.div`
 			&.city {
 				padding: 0 7px;
 			}
-
 		}
 	}
 
@@ -63,24 +64,34 @@ const HeaderContent = styled.div`
 type Props = {}
 
 export default function Header({}: Props) {
-	return (
-		<Container>
-			<HeaderContent>
-				<div className='navbar'>
-					<div className='block'>
-						<Image src={Favorite} alt={'favorite'} />
+	const pathname = usePathname()
+
+	return !pathname.startsWith('/auth') ? (
+		<>
+			<Container>
+				<HeaderContent>
+					<div className='navbar'>
+						<div className='block'>
+							<Image src={Favorite} alt={'favorite'} />
+						</div>
+						<div className='block'>
+							<Image src={Chat} alt={'chat'} />
+						</div>
+						<div className='block city'>
+							<Image src={Pin} alt={'pin'} />
+							<h4>г. Челябинск</h4>
+						</div>
 					</div>
-					<div className='block'>
-						<Image src={Chat} alt={'chat'} />
+					<div className='logo'>
+						<h3>WebMarket</h3>
 					</div>
-					<div className='block city'>
-						<Image src={Pin} alt={'pin'} />
-						<h4>г. Челябинск</h4>
-					</div>
-				</div>
-				<div className='logo'><h3>WebMarket</h3></div>
-				<div className='user'><h4>Войти</h4></div>
-			</HeaderContent>
-		</Container>
-	)
+					<Link href='/auth/account'>
+						<div className='user'>
+							<h4>Войти</h4>
+						</div>
+					</Link>
+				</HeaderContent>
+			</Container>
+		</>
+	) : null
 }

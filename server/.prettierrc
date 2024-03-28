@@ -5,18 +5,5 @@
 	"arrowParents": "avoid",
 	"semi": false,
 	"trailingComma": "none",
-	"useTabs": true,
-	"overrides": [
-		{
-			"files": "*.prisma",
-			"options": {
-				"tabWidth": 2,
-				"singleQuote": true,
-				"arrowParents": "avoid",
-				"semi": false,
-				"trailingComma": "none",
-				"useTabs": true
-			}
-		}
-	]
+	"useTabs": true
 }
