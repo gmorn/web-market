@@ -1,16 +1,6 @@
 import { Module } from '@nestjs/common'
-import { AddressModule } from './address/address.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { CategoryModule } from './category/category.module'
-import { ChapterModule } from './chapter/chapter.module'
-import { ChatModule } from './chat/chat.module'
-import { FavoriteModule } from './favorite/favorite.module'
-import { MessageModule } from './message/message.module'
-import { NotificationModule } from './notification/notification.module'
-import { ProductModule } from './product/product.module'
-import { ReviewModule } from './review/review.module'
-import { SubCategoryModule } from './sub-category/sub-category.module'
 import { UserModule } from './user/user.module'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
@@ -19,16 +9,6 @@ import { AuthModule } from './auth/auth.module';
 @Module({
 	imports: [
 		UserModule,
-		ProductModule,
-		ReviewModule,
-		ChatModule,
-		MessageModule,
-		ChapterModule,
-		CategoryModule,
-		SubCategoryModule,
-		FavoriteModule,
-		NotificationModule,
-		AddressModule,
 		ConfigModule.forRoot({ isGlobal: true }),
 		TypeOrmModule.forRootAsync({
 			imports: [ConfigModule],

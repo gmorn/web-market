@@ -1,7 +1,8 @@
 export const theme = {
 	color: {
 		black: '#303030',
-		white: '#F6FBFF'
+		white: '#F6FBFF',
+		red: '#FF6868'
 	},
 	typography: {
 		h1: `
@@ -41,6 +42,10 @@ export const theme = {
 		&:hover {
 			box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.07);
 			transform: scale(1.03);
+		}
+
+		&:active {
+			transform: scale(1.0);
 		}
 	`
 }

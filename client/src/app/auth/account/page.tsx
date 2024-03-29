@@ -1,4 +1,4 @@
-import Account from '@/components/screens/auth/Account'
+import Account from '@/components/screens/auth/account/Account'
 
 type Props = {}
 

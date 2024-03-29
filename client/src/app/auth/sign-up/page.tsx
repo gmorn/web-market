@@ -1,4 +1,4 @@
-import SignUp from '@/components/screens/auth/SignUp'
+import SignUp from '@/components/screens/auth/sign-up/SignUp'
 
 type Props = {}
 
